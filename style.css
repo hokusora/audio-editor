@@ -1,0 +1,107 @@
+:root {
+    /* Nền tối dịu hơn, hơi ngả tím than để làm nổi màu pastel */
+    --bg-dreamy: #2a2a35;
+    --panel-dreamy: #343442;
+    
+    /* Bảng màu Pastel chủ đạo */
+    --pastel-pink: #ffadcc;   /* Hồng phấn */
+    --pastel-rose: #ff85a2;   /* Hồng đậm hơn chút */
+    --pastel-orange: #ffcc99; /* Cam đào */
+    --pastel-peach: #ffa07a;  /* Cam san hô nhẹ */
+    
+    --text-light: #f0f0f0;
+}
+
+body { 
+    background-color: var(--bg-dreamy); color: var(--text-light); 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0; padding: 20px; display: flex; justify-content: center; 
+}
+
+.container { 
+    width: 100%; max-width: 1100px; 
+    background: var(--panel-dreamy); 
+    padding: 25px; border-radius: 16px; 
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    border: 1px solid rgba(255, 173, 204, 0.1); /* Viền hồng nhẹ */
+}
+
+h2 {
+    /* Tiêu đề Gradient */
+    background: linear-gradient(to right, var(--pastel-pink), var(--pastel-orange));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 700;
+}
+
+/* --- WAVEFORM CONTAINER --- */
+#waveform {
+    border-radius: 8px; 
+    /* Nền waveform hơi sáng hơn nền chính một chút */
+    background: rgba(255,255,255,0.05); 
+    margin: 20px 0; 
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative; z-index: 1;
+    box-shadow: inset 0 0 20px rgba(0,0,0,0.2);
+}
+
+/* --- INPUTS & CONTROLS DREAMY STYLE --- */
+.control-row { display: flex; gap: 15px; align-items: center; justify-content: center; margin-bottom: 20px; flex-wrap: wrap; }
+
+/* Ô nhập thời gian */
+.time-group {
+    background: rgba(0,0,0,0.2); padding: 10px 15px; border-radius: 12px;
+    display: flex; flex-direction: column; align-items: center;
+}
+.time-label { font-size: 0.8em; font-weight: bold; margin-bottom: 5px; letter-spacing: 1px;}
+
+.time-box {
+    background: transparent; border: 2px solid rgba(255,255,255,0.2); color: var(--text-light); padding: 8px; 
+    font-family: monospace; font-size: 1.4em; width: 130px; text-align: center; border-radius: 8px; font-weight: bold;
+    transition: all 0.3s;
+}
+.time-box:focus { outline: none; border-color: var(--pastel-pink); box-shadow: 0 0 15px rgba(255, 173, 204, 0.3); }
+
+/* Nút bấm chính */
+.btn-main { 
+    padding: 12px 24px; 
+    background: linear-gradient(135deg, #444, #555); 
+    color: white; border: none; cursor: pointer; border-radius: 30px; font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+.btn-main:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.3); background: linear-gradient(135deg, #555, #666); }
+
+.btn-play { width: 55px; height: 55px; border-radius: 50%; background: linear-gradient(135deg, var(--pastel-pink), var(--pastel-orange)); color: #fff; font-size: 22px; border: none; cursor: pointer; box-shadow: 0 0 20px rgba(255, 173, 204, 0.5); transition: transform 0.2s; }
+.btn-play:hover { transform: scale(1.1); }
+
+/* Nút Xuất file nổi bật */
+.btn-export {
+    background: linear-gradient(to right, var(--pastel-rose), var(--pastel-peach)) !important;
+    color: white !important; font-size: 1.1em;
+}
+.btn-export:hover {
+     box-shadow: 0 0 25px rgba(255, 133, 162, 0.6) !important;
+}
+
+/* Select box & Sliders */
+select { background: #444; color: white; border: 1px solid #555; padding: 10px; border-radius: 8px; }
+input[type=range] { accent-color: var(--pastel-pink); cursor: pointer; }
+.slider-group { display: flex; flexDirection: column; align-items: flex-start; gap: 8px; background: rgba(0,0,0,0.2); padding: 12px 20px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); }
+.slider-label { font-size: 0.9em; color: #ccc; }
+.highlight-val { color: var(--pastel-pink); font-weight: bold; }
+
+/* Loading */
+#loadingOverlay { position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(42, 42, 53, 0.95); z-index: 999; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+.spinner { width: 50px; height: 50px; border: 4px solid rgba(255, 173, 204, 0.2); border-top-color: var(--pastel-pink); border-radius: 50%; animation: spin 1s linear infinite; }
+@keyframes spin { 100% { transform: rotate(360deg); } }
+
+/* --- Cập nhật màu cho đồng hồ đang phát --- */
+.current-time-display {
+    font-size: 2.2em; 
+    font-family: monospace; 
+    font-weight:bold; 
+    /* Dùng màu hồng pastel */
+    color: var(--pastel-pink);
+    text-shadow: 0 0 8px rgba(255, 173, 204, 0.4);
+}

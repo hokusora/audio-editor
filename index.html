@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dreamy Audio Editor - Pastel Edition</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="coi-serviceworker.js"></script>
+    <script src="https://unpkg.com/wavesurfer.js@7/dist/wavesurfer.min.js"></script>
+    <script src="https://unpkg.com/wavesurfer.js@7/dist/plugins/regions.min.js"></script>
+    <script src="https://unpkg.com/@ffmpeg/ffmpeg@0.10.1/dist/ffmpeg.min.js"></script>
+</head>
+<body>
+
+<div id="loadingOverlay">
+    <div class="spinner"></div>
+    <div style="margin-top:15px; color: var(--pastel-pink); font-weight: 500;" id="loadingText">Đang tải trải nghiệm...</div>
+</div>
+
+<div class="container">
+    <div class="control-row" style="justify-content: space-between;">
+        <h2 style="margin:0;">✨ DREAMY STUDIO <small style="font-size:0.6em; opacity: 0.7;">Pastel Tone</small></h2>
+        <label class="btn-main" style="background: linear-gradient(135deg, var(--pastel-pink), var(--pastel-orange)); border:none;">
+            📂 Mở File Nhạc/Video
+            <input type="file" id="fileInput" accept="audio/*,video/*" style="display:none">
+        </label>
+    </div>
+
+    <div class="control-row" style="background: rgba(255,255,255,0.03); padding: 20px; border-radius: 16px;">
+        <div class="time-group">
+            <div class="time-label" style="color: var(--pastel-pink);">START</div>
+            <input type="number" id="startTime" class="time-box" style="color: var(--pastel-pink); border-color: var(--pastel-pink);" step="0.001">
+        </div>
+        
+        <div style="text-align: center; margin: 0 30px; min-width: 180px;">
+            <div style="color: #e9b5b5; font-size: 0.8em; margin-bottom: 5px;">THỜI GIAN ĐANG PHÁT</div>
+            <div id="currentTime" style="font-size: 2.2em; font-family: monospace; font-weight:bold; 
+            background: linear-gradient(to right, var(--pastel-pink), var(--pastel-orange)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                00:00.000
+            </div>
+        </div>
+
+        <div class="time-group">
+            <div class="time-label" style="color: var(--pastel-orange);">END</div>
+            <input type="number" id="endTime" class="time-box" style="color: var(--pastel-orange); border-color: var(--pastel-orange);" step="0.001">
+        </div>
+    </div>
+
+    <div id="waveform"></div>
+
+    <div class="control-row">
+        <button class="btn-main" onclick="skip(-5)">⏪ -5s</button>
+        <button class="btn-play" onclick="playPause()">⏯</button>
+        <button class="btn-main" onclick="skip(5)">+5s ⏩</button>
+    </div>
+
+    <div class="control-row">
+        <div class="slider-group">
+            <span class="slider-label">⚡ Tốc độ: <b id="speedDisplay" class="highlight-val">1.0x</b></span>
+            <input type="range" id="previewSpeed" min="0.5" max="2.0" step="0.1" value="1.0" style="width: 180px;">
+        </div>
+
+        <div class="slider-group">
+            <span class="slider-label">🔊 Âm lượng: <b id="volDisplay" class="highlight-val" style="color: var(--pastel-orange)">100%</b></span>
+            <input type="range" id="previewVolume" min="0" max="200" step="10" value="100" style="width: 180px; accent-color: var(--pastel-orange);">
+        </div>
+        
+        <div class="slider-group">
+            <span class="slider-label">🔍 Zoom</span>
+            <input type="range" id="zoomSlider" min="10" max="500" value="50" style="width: 100px;">
+        </div>
+    </div>
+
+    <hr style="border-color: rgba(255,255,255,0.1); margin: 25px 0;">
+
+    <div class="control-row">
+        <select id="cutMode" class="btn-main">
+            <option value="keep">✂️ Lấy vùng chọn</option>
+            <option value="remove">🗑️ Xóa vùng chọn</option>
+        </select>
+        
+        <select id="format" class="btn-main">
+            <option value="mp3">MP3</option>
+            <option value="wav">WAV</option>
+        </select>
+
+        <select id="bitrate" class="btn-main">
+            <option value="128k">128 kbps</option>
+            <option value="192k">192 kbps</option>
+            <option value="256k">256 kbps</option>
+            <option value="320k" selected>320 kbps</option>
+        </select>
+
+        <button class="btn-main btn-export" onclick="exportFile()">
+            💾 EXPORT
+        </button>
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
